@@ -23,19 +23,7 @@ namespace TaskManagementMVC.Controllers
 
         public IActionResult Index()
         {
-
-            _taskRepository.Create(new TaskModel()
-            {
-                Title = "Sample Task",
-                Status = Status.Started,
-                Created = DateTime.Now,
-               UserID = 1,
-                Due = DateTime.Now.AddDays(7)
-            }).Wait();
-            var list = _userRepository.GetAll().Result;
             return View();
-
-          
         }
 
         public IActionResult Privacy()
