@@ -1,7 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using TaskManagementMVC.DataAccess;
+using TaskManagementMVC.DataAccess.Abstract;
+using TaskManagementMVC.DataAccess.TaskDAL;
+using TaskManagementMVC.DataAccess.UserDAL;
+using TaskManagementMVC.DataContext;
+using TaskManagementMVC.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<TaskManagementDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TaskManagement"));
+});
+
+builder.Services.AddScoped<IRepository<UserModel>,UserRepository>();
+builder.Services.AddScoped<IRepository<TaskModel>, TaskRepository>();
+
+//builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryFactory));
 
 var app = builder.Build();
 
