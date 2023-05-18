@@ -1,10 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using TaskManagementMVC.Business.Task;
+using TaskManagementMVC.Business.Task.Abstract;
+using TaskManagementMVC.Business.Task.TaskStates;
 using TaskManagementMVC.DataAccess;
 using TaskManagementMVC.DataAccess.Abstract;
 using TaskManagementMVC.DataAccess.TaskDAL;
 using TaskManagementMVC.DataAccess.UserDAL;
 using TaskManagementMVC.DataContext;
 using TaskManagementMVC.Models;
+using TaskManagementMVC.Models.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,11 +21,17 @@ builder.Services.AddDbContext<TaskManagementDbContext>(options =>
 });
 
 builder.Services.AddScoped<IRepository<UserModel>,UserRepository>();
+
 builder.Services.AddScoped<IRepository<TaskModel>, TaskRepository>();
 
-//builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryFactory));
+builder.Services.AddScoped<ITaskState, Started>();
+builder.Services.AddScoped<ITaskState, InProcess>();
+builder.Services.AddScoped<ITaskState,Completed>();
 
+builder.Services.AddScoped<TaskStateManager>();
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

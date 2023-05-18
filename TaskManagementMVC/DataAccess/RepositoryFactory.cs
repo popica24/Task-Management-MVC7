@@ -10,8 +10,7 @@ namespace TaskManagementMVC.DataAccess
     {
         public static IRepository<T> Create<T>(IServiceProvider serviceProvider, int type)
         {
-            switch (type)
-            {
+            switch (type){
                 case (int)RepositoryType.User:
                     return serviceProvider.GetService<UserRepository>() as IRepository<T>;
                 case (int)RepositoryType.Task:

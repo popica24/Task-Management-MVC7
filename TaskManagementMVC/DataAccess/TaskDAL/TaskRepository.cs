@@ -42,7 +42,7 @@ namespace TaskManagementMVC.DataAccess.TaskDAL
 
         public async Task<TaskModel> GetById(int id)
         {
-            return await _context.Tasks.FindAsync(id);
+            return await _context.Tasks.FirstAsync(x => x.ID == id);
         }
 
         public async Task Update(TaskModel model)

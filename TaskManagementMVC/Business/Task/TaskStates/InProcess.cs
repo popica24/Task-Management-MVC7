@@ -1,13 +1,26 @@
-﻿using TaskManagementMVC.Business.Task.Abstract;
+﻿using Azure.Core;
+using TaskManagementMVC.Business.Task.Abstract;
+using TaskManagementMVC.DataAccess.TaskDAL;
+using TaskManagementMVC.DataContext;
 using TaskManagementMVC.Models;
+using TaskManagementMVC.Models.Enums;
 
 namespace TaskManagementMVC.Business.Task.TaskStates
 {
     public class InProcess : ITaskState
     {
-        public void Handle(TaskModel context)
+        private readonly TaskRepository _repo;
+
+        public InProcess(TaskRepository repo)
         {
-            context.Status = Models.Enums.Status.Completed;
+            _repo = repo;
+        }
+
+        public async Task<Status> Handle(TaskModel context)
+        {
+            context.Status = Status.Completed;
+            await _repo.Update(context);
+            return context.Status;
         }
     }
 }
