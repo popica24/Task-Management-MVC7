@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using TaskManagementMVC.Business.Task.Abstract;
+using TaskManagementMVC.DataAccess.Abstract;
 using TaskManagementMVC.DataAccess.TaskDAL;
 using TaskManagementMVC.DataContext;
 using TaskManagementMVC.Models;
@@ -9,9 +10,9 @@ namespace TaskManagementMVC.Business.Task.TaskStates
 {
     public class Completed : ITaskState
     {
-        private readonly TaskRepository _repo;
+        private readonly IRepository<TaskModel> _repo;
 
-        public Completed(TaskRepository repo)
+        public Completed(IRepository<TaskModel> repo)
         {
             _repo = repo;
         }

@@ -26,7 +26,7 @@ builder.Services.AddScoped<IRepository<TaskModel>, TaskRepository>();
 
 builder.Services.AddScoped<ITaskState, Started>();
 builder.Services.AddScoped<ITaskState, InProcess>();
-builder.Services.AddScoped<ITaskState,Completed>();
+builder.Services.AddScoped<ITaskState, Completed>();
 
 builder.Services.AddScoped<TaskStateManager>();
 var app = builder.Build();

@@ -16,8 +16,9 @@ namespace TaskManagementMVC.Controllers
         private readonly IRepository<UserModel> _userRepository;
         private readonly IRepository<TaskModel> _taskRepository;
         private readonly TaskStateManager _stateManager;
-        public HomeController(ILogger<HomeController> logger, IRepository<TaskModel>? taskRepository, 
-            IRepository<UserModel>? userRepository, TaskStateManager stateManager)
+
+        public HomeController(ILogger<HomeController> logger, IRepository<TaskModel> taskRepository, 
+            IRepository<UserModel> userRepository, TaskStateManager stateManager)
         {
             _logger = logger;
             _userRepository = userRepository;
@@ -29,7 +30,7 @@ namespace TaskManagementMVC.Controllers
         public IActionResult Index()
         {
             var list = _taskRepository.GetAll().Result;
-            _stateManager.SetTask(_taskRepository.GetById(2).Result);
+            _stateManager.SetTask(_taskRepository.GetById(1).Result);
 
             _stateManager.Request();
             
