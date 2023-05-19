@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TaskManagementMVC.Business.Task;
 using TaskManagementMVC.Business.Task.Abstract;
@@ -28,6 +29,9 @@ builder.Services.AddScoped<ITaskState, InProcess>();
 builder.Services.AddScoped<ITaskState, Completed>();
 
 builder.Services.AddScoped<TaskStateManager>();
+
+
+
 var app = builder.Build();
 
 
