@@ -4,11 +4,10 @@ using TaskManagementMVC.Business.Task.Abstract;
 using TaskManagementMVC.Business.Task.TaskStates;
 using TaskManagementMVC.DataAccess;
 using TaskManagementMVC.DataAccess.Abstract;
-using TaskManagementMVC.DataAccess.TaskDAL;
-using TaskManagementMVC.DataAccess.UserDAL;
+using TaskManagementMVC.DataAccess.TaskRepo;
+using TaskManagementMVC.DataAccess.UserRepo;
 using TaskManagementMVC.DataContext;
 using TaskManagementMVC.Models;
-using TaskManagementMVC.Models.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 

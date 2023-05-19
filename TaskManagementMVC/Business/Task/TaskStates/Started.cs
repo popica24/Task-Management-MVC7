@@ -1,8 +1,5 @@
-﻿using Azure.Core;
-using TaskManagementMVC.Business.Task.Abstract;
+﻿using TaskManagementMVC.Business.Task.Abstract;
 using TaskManagementMVC.DataAccess.Abstract;
-using TaskManagementMVC.DataAccess.TaskDAL;
-using TaskManagementMVC.DataContext;
 using TaskManagementMVC.Models;
 using TaskManagementMVC.Models.Enums;
 

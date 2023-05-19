@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TaskManagementMVC.DataAccess.Abstract;
 using TaskManagementMVC.DataContext;
 using TaskManagementMVC.Models;
 
-namespace TaskManagementMVC.DataAccess.UserDAL
+namespace TaskManagementMVC.DataAccess.UserRepo
 {
     public class UserRepository : IRepository<UserModel>
     {

@@ -1,14 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using TaskManagementMVC.DataAccess.Abstract;
-using TaskManagementMVC.DataAccess.TaskDAL;
-using TaskManagementMVC.DataAccess.UserDAL;
-using TaskManagementMVC.Models;
+﻿using TaskManagementMVC.DataAccess.Abstract;
+using TaskManagementMVC.DataAccess.TaskRepo;
+using TaskManagementMVC.DataAccess.UserRepo;
 
 namespace TaskManagementMVC.DataAccess
 {
     public static class RepositoryFactory
     {
-        public static IRepository<T> Create<T>(IServiceProvider serviceProvider, int type)
+        public static IRepository<T>? Create<T>(IServiceProvider serviceProvider, int type)
         {
             switch (type){
                 case (int)RepositoryType.User:

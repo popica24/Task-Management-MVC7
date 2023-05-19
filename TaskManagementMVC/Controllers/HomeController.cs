@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TaskManagementMVC.Business.Task;
-using TaskManagementMVC.DataAccess;
 using TaskManagementMVC.DataAccess.Abstract;
-using TaskManagementMVC.DataAccess.TaskDAL;
-using TaskManagementMVC.DataAccess.UserDAL;
 using TaskManagementMVC.Models;
-using TaskManagementMVC.Models.Enums;
 
 namespace TaskManagementMVC.Controllers
 {
@@ -24,24 +20,27 @@ namespace TaskManagementMVC.Controllers
             _userRepository = userRepository;
             _taskRepository = taskRepository;
             _stateManager = stateManager;
-         
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _taskRepository.GetAll().Result;
-            _stateManager.SetTask(_taskRepository.GetById(1).Result);
+            IEnumerable<TaskModel> tasks = await _taskRepository.GetAll();
+            var filteredTasks = tasks.Where(x => x.UserID == 1);
 
-            _stateManager.Request();
-            
-           
-            
+            return View(filteredTasks);
+        }
+
+        public IActionResult Create()
+        {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> Create(TaskModel request)
         {
-            return View();
+           await _taskRepository.Create(request);
+
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

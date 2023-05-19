@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TaskManagementMVC.DataAccess.Abstract;
 using TaskManagementMVC.Models;
 using TaskManagementMVC.DataContext;
 
-namespace TaskManagementMVC.DataAccess.TaskDAL
+namespace TaskManagementMVC.DataAccess.TaskRepo
 {
     public class TaskRepository : IRepository<TaskModel>
     {
@@ -20,6 +16,7 @@ namespace TaskManagementMVC.DataAccess.TaskDAL
 
         public async Task<int> Create(TaskModel model)
         {
+            model.Status = Models.Enums.Status.Started;
             _context.Tasks.Add(model);
             await _context.SaveChangesAsync();
             return model.ID;
