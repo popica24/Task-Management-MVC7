@@ -1,12 +1,9 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TaskManagementMVC.Business.Task;
-using TaskManagementMVC.Business.Task.Abstract;
-using TaskManagementMVC.Business.Task.TaskStates;
-using TaskManagementMVC.DataAccess;
+using TaskManagementMVC.Business.Project;
+using TaskManagementMVC.Business.Project.Abstract;
+using TaskManagementMVC.Business.Project.ProjectStates;
 using TaskManagementMVC.DataAccess.Abstract;
 using TaskManagementMVC.DataAccess.TaskRepo;
-using TaskManagementMVC.DataAccess.UserRepo;
 using TaskManagementMVC.DataContext;
 using TaskManagementMVC.Models;
 
@@ -15,20 +12,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<TaskManagementDbContext>(options =>
+builder.Services.AddDbContext<TechfolioDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TaskManagement"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Techfolio"));
 });
 
-builder.Services.AddScoped<IRepository<UserModel>,UserRepository>();
+builder.Services.AddScoped<IRepository<ProjectModel>, ProjectRepository>();
 
-builder.Services.AddScoped<IRepository<TaskModel>, TaskRepository>();
+builder.Services.AddScoped<IProjectState, Planning>();
+builder.Services.AddScoped<IProjectState, InProcess>();
+builder.Services.AddScoped<IProjectState, Completed>();
 
-builder.Services.AddScoped<ITaskState, Started>();
-builder.Services.AddScoped<ITaskState, InProcess>();
-builder.Services.AddScoped<ITaskState, Completed>();
-
-builder.Services.AddScoped<TaskStateManager>();
+builder.Services.AddScoped<ProjectStateManager>();
 
 
 

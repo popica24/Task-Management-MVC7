@@ -2,7 +2,7 @@
 {
     public enum Status
     {
-        Started,
+        Planning,
         InProcess,
         Completed
     }

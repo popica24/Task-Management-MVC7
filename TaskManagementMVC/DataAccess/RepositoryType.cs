@@ -2,7 +2,6 @@
 {
     public enum RepositoryType
     {
-        Task = 1,
-        User = 2
+        Task = 1
     }
 }

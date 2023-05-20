@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TaskManagementMVC.Business.Task;
+using TaskManagementMVC.Business.Project;
 using TaskManagementMVC.DataAccess.Abstract;
 using TaskManagementMVC.Models;
 
@@ -9,25 +9,25 @@ namespace TaskManagementMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IRepository<UserModel> _userRepository;
-        private readonly IRepository<TaskModel> _taskRepository;
-        private readonly TaskStateManager _stateManager;
+        private readonly IRepository<ProjectModel> _projectsRepo;
+        private readonly ProjectStateManager _stateManager;
 
-        public HomeController(ILogger<HomeController> logger, IRepository<TaskModel> taskRepository, 
-            IRepository<UserModel> userRepository, TaskStateManager stateManager)
+        public HomeController(
+            ILogger<HomeController> logger, 
+            IRepository<ProjectModel> projectsRepo, 
+            ProjectStateManager stateManager
+            )
         {
             _logger = logger;
-            _userRepository = userRepository;
-            _taskRepository = taskRepository;
+            _projectsRepo = projectsRepo;
             _stateManager = stateManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<TaskModel> tasks = await _taskRepository.GetAll();
-            var filteredTasks = tasks.Where(x => x.UserID == 1);
+            IEnumerable<ProjectModel> projects = await _projectsRepo.GetAll();
 
-            return View(filteredTasks);
+            return View(projects);
         }
 
         public IActionResult Create()
@@ -36,9 +36,9 @@ namespace TaskManagementMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TaskModel request)
+        public async Task<IActionResult> Create(ProjectModel request)
         {
-           await _taskRepository.Create(request);
+           await _projectsRepo.Create(request);
 
             return RedirectToAction("Index");
         }

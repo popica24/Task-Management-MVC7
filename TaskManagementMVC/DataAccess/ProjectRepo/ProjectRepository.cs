@@ -5,18 +5,18 @@ using TaskManagementMVC.DataContext;
 
 namespace TaskManagementMVC.DataAccess.TaskRepo
 {
-    public class TaskRepository : IRepository<TaskModel>
+    public class ProjectRepository : IRepository<ProjectModel>
     {
-        private readonly TaskManagementDbContext _context;
+        private readonly TechfolioDbContext _context;
 
-        public TaskRepository(TaskManagementDbContext context)
+        public ProjectRepository(TechfolioDbContext context)
         {
             _context = context;
         }
 
-        public async Task<int> Create(TaskModel model)
+        public async Task<int> Create(ProjectModel model)
         {
-            model.Status = Models.Enums.Status.Started;
+            model.Status = Models.Enums.Status.Planning;
             _context.Tasks.Add(model);
             await _context.SaveChangesAsync();
             return model.ID;
@@ -32,17 +32,17 @@ namespace TaskManagementMVC.DataAccess.TaskRepo
             }
         }
 
-        public async Task<List<TaskModel>> GetAll()
+        public async Task<List<ProjectModel>> GetAll()
         {
             return await _context.Tasks.ToListAsync();
         }
 
-        public async Task<TaskModel> GetById(int id)
+        public async Task<ProjectModel> GetById(int id)
         {
             return await _context.Tasks.FirstAsync(x => x.ID == id);
         }
 
-        public async Task Update(TaskModel model)
+        public async Task Update(ProjectModel model)
         {
             _context.Tasks.Update(model);
             await _context.SaveChangesAsync();

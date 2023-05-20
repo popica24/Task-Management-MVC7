@@ -1,20 +1,20 @@
-﻿using TaskManagementMVC.Business.Task.Abstract;
-using TaskManagementMVC.Business.Task.TaskStates;
+﻿using TaskManagementMVC.Business.Project.Abstract;
+using TaskManagementMVC.Business.Project.ProjectStates;
 using TaskManagementMVC.Models;
 
-namespace TaskManagementMVC.Business.Task
+namespace TaskManagementMVC.Business.Project
 {
-    public class TaskStateManager
+    public class ProjectStateManager
     {
-        private TaskModel? _task;
-        private readonly IEnumerable<ITaskState> _serviceProvider;
-        public TaskStateManager(IEnumerable<ITaskState> serviceProvider)
+        private ProjectModel? _task;
+        private readonly IEnumerable<IProjectState> _serviceProvider;
+        public ProjectStateManager(IEnumerable<IProjectState> serviceProvider)
         {
             _serviceProvider = serviceProvider;
           
         }
 
-        public void SetTask(TaskModel task)
+        public void SetTask(ProjectModel task)
         {
             _task = task;
         }
@@ -27,13 +27,13 @@ namespace TaskManagementMVC.Business.Task
             }   
         }
 
-        private ITaskState? GetCurrentState()
+        private IProjectState? GetCurrentState()
         {
             if( _task != null ) {
                 switch (_task.Status)
                 {
-                    case Models.Enums.Status.Started:
-                        return _serviceProvider.FirstOrDefault(x => x.GetType() == typeof(Started));
+                    case Models.Enums.Status.Planning:
+                        return _serviceProvider.FirstOrDefault(x => x.GetType() == typeof(Planning));
                     case Models.Enums.Status.InProcess:
                         return _serviceProvider.FirstOrDefault(x => x.GetType() == typeof(InProcess));
                     case Models.Enums.Status.Completed:
